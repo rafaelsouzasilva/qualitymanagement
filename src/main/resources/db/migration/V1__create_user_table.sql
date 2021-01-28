@@ -3,6 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE public.profile (
     id UUID not null default uuid_generate_v4(),
     name varchar(30),
+    enabled boolean default true,
     PRIMARY KEY(id)
 );
 
@@ -21,7 +22,7 @@ CREATE TABLE public.users_profile (
     foreign key (user_id) references users (id)
 );
 
-INSERT INTO profile (name) VALUES ('admin');
+INSERT INTO profile (name, enabled) VALUES ('admin', true);
 INSERT INTO users (email, password) VALUES ('rafael.souza.silva@hotmail.com.br', '$2a$10$ydIb2SITXDZFqFfLkGurwOcyKk3XQJCULde13a1hORPufCh22bamy');
 INSERT INTO users_profile (profile_id, user_id) VALUES (
     (SELECT id FROM profile WHERE name = 'admin'),
