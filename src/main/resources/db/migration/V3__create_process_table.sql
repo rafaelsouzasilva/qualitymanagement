@@ -8,3 +8,10 @@ CREATE TABLE public.process (
     enabled boolean,
     PRIMARY KEY (id)
 );
+
+insert into process (name, description, tasks, enabled) values (
+    'Avaliação de porta',
+    'Verificar se porta tem algum risco',
+    'Avaliar porta na luz azul',
+    true
+);

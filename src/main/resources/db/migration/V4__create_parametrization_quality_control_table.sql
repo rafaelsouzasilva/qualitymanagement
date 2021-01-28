@@ -9,3 +9,10 @@ CREATE TABLE public.parametrization_quality_control (
     PRIMARY KEY (id),
     FOREIGN KEY (process_id) REFERENCES process (id)
 );
+
+insert into parametrization_quality_control (description, start_time_allowed, end_time_allowed, process_id) values (
+    'Parametrização Avaliação de Porta',
+    '00:01',
+    '23:59',
+    (select id from process where name = 'Avaliação de porta')
+);
