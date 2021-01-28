@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -26,13 +26,9 @@ public class UserEntity implements UserDetails {
     private UUID id;
     private String email;
     private String password;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "users_profile",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "profile_id")
-    )
-    private List<ProfileEntity> userProfiles;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    private ProfileEntity profile;
 
     public UserEntity() {
         this.id = UUID.randomUUID();
@@ -48,9 +44,15 @@ public class UserEntity implements UserDetails {
         return new UserEntity(user.getEmail(), user.getPassword());
     }
 
+    public List<ProfileEntity> getUserProfiles() {
+        List<ProfileEntity> profiles = new ArrayList<ProfileEntity>();
+        profiles.add(profile);
+        return profiles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getUserProfiles();
+        return getUserProfiles();
     }
 
     @Override
