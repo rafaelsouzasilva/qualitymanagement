@@ -1,32 +1,35 @@
 package br.com.vehicle.qualitymanagement.infra.jpa.entity;
 
-import br.com.vehicle.qualitymanagement.domain.Profile;
+import br.com.vehicle.qualitymanagement.domain.Process;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "profile")
+@Table(name = "process")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class ProfileEntity implements GrantedAuthority {
+public class ProcessEntity {
 
     @Id
     private UUID id;
     private String name;
+    private String description;
+    private String tasks;
     private boolean enabled;
 
-    @Override
-    public String getAuthority() {
-        return this.getName();
-    }
-
-    public Profile toDomain() {
-        return new Profile();
+    public Process toDomain() {
+        return new Process(
+            id,
+            name,
+            description,
+            tasks,
+            enabled
+        );
     }
 }

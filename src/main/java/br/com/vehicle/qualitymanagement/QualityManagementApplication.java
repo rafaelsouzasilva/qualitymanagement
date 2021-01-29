@@ -9,5 +9,4 @@ public class QualityManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(QualityManagementApplication.class, args);
 	}
-
 }
