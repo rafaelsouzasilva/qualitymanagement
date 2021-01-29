@@ -1,5 +1,6 @@
 package br.com.vehicle.qualitymanagement.infra.jpa.entity;
 
+import br.com.vehicle.qualitymanagement.domain.Process;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,13 @@ public class ProcessEntity {
     private String tasks;
     private boolean enabled;
 
+    public Process toDomain() {
+        return new Process(
+            id,
+            name,
+            description,
+            tasks,
+            enabled
+        );
+    }
 }

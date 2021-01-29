@@ -4,6 +4,10 @@ import br.com.vehicle.qualitymanagement.infra.adapter.NonComplianceAdapter;
 import br.com.vehicle.qualitymanagement.domain.NonCompliance;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class NonComplianceService {
 
@@ -15,5 +19,21 @@ public class NonComplianceService {
     
     public NonCompliance create(NonCompliance nonCompliance) {
         return nonComplianceAdapter.save(nonCompliance);
+    }
+
+    public List<NonCompliance> findAll() {
+        return nonComplianceAdapter.findAll();
+    }
+
+    public NonCompliance update(NonCompliance nonCompliance) {
+        return nonComplianceAdapter.save(nonCompliance);
+    }
+
+    public NonCompliance find(UUID id) {
+        return nonComplianceAdapter.find(id);
+    }
+
+    public void delete(UUID id) {
+        nonComplianceAdapter.delete(id);
     }
 }

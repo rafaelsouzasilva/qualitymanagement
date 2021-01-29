@@ -1,5 +1,6 @@
 package br.com.vehicle.qualitymanagement.infra.jpa.entity;
 
+import br.com.vehicle.qualitymanagement.domain.ParametrizationQualityControl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +31,11 @@ public class ParametrizationQualityControlEntity {
     @JoinColumn(name = "process_id", referencedColumnName = "id")
     private ProcessEntity processEntity;
 
+    public ParametrizationQualityControl toDomain() {
+        return new ParametrizationQualityControl(
+            id,
+            description,
+            processEntity.toDomain()
+        );
+    }
 }

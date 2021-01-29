@@ -2,7 +2,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE public.quality_control (
     id UUID not null default uuid_generate_v4(),
-    evaluation_date datetime,
+    evaluation_date date,
     parametrization_quality_control_id uuid,
     employee_id uuid,
     enabled boolean,

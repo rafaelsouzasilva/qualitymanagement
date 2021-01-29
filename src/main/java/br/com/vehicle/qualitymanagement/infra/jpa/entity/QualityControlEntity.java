@@ -1,5 +1,6 @@
 package br.com.vehicle.qualitymanagement.infra.jpa.entity;
 
+import br.com.vehicle.qualitymanagement.domain.QualityControl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,12 @@ import java.util.UUID;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class QualityControlEntity {
 
+    public QualityControlEntity(UUID id) {
+        this.id = id;
+    }
+
     @Id
     private UUID id;
-    private String description;
     @Column(name = "evaluation_date")
     private Date evaluationDate;
     private boolean enabled;
@@ -34,5 +38,19 @@ public class QualityControlEntity {
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private EmployeeEntity employeeEntity;
+
+    public QualityControl toDomain() {
+        return new QualityControl(
+                id,
+                evaluationDate,
+                enabled,
+                closed,
+                parametrizationQualityControlEntity.toDomain()
+        );
+    }
+
+    public static QualityControlEntity fromDomain(UUID id) {
+        return new QualityControlEntity(id);
+    }
 
 }
