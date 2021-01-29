@@ -33,7 +33,7 @@ public class QualityControlController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<QualityControlResponse> findById(@PathVariable("{id}") UUID id) {
+    public ResponseEntity<QualityControlResponse> findById(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(
                 QualityControlResponse.fromDomain(qualityControlService.findById(id))
         );
