@@ -5,6 +5,7 @@ import br.com.vehicle.qualitymanagement.infra.adapter.QualityControlAdapter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class QualityControlService {
@@ -17,6 +18,10 @@ public class QualityControlService {
     
     public List<QualityControl> findAll() {
         return qualityControlAdapter.findAll();
+    }
+
+    public QualityControl findById(UUID id) {
+        return qualityControlAdapter.findById(id);
     }
 
 }

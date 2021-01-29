@@ -6,6 +6,7 @@ import br.com.vehicle.qualitymanagement.infra.jpa.repository.QualityControlRepos
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,5 +23,9 @@ public class QualityControlAdapter {
                     .stream()
                     .map(QualityControlEntity::toDomain)
                     .collect(Collectors.toList());
+    }
+
+    public QualityControl findById(UUID id) {
+        return qualityControlRepository.findById(id).get().toDomain();
     }
 }
