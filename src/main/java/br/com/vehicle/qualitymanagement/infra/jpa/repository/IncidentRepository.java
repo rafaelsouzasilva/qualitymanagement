@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface IncidentRepository extends JpaRepository<IncidentEntity, UUID> {
 
     List<IncidentEntity> findByQualityControlEntityId(UUID id);
+    List<IncidentEntity> findByEnabled(boolean enabled);
 }

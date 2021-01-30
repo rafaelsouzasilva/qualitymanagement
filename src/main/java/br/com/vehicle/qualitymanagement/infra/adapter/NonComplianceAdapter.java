@@ -31,7 +31,7 @@ public class NonComplianceAdapter {
     }
 
     public List<NonCompliance> findAll() {
-        return incidentRepository.findAll()
+        return incidentRepository.findByEnabled(true)
                 .stream()
                 .map(IncidentEntity::toNonCompliance)
                 .collect(Collectors.toList());
@@ -43,7 +43,13 @@ public class NonComplianceAdapter {
 
     public void delete(UUID id) {
         Optional<IncidentEntity> entity = incidentRepository.findById(id);
-        entity.get().setEnabled(false);
+        if (entity.isPresent()) {
+            IncidentEntity database = entity.get();
+            database.setEnabled(false);
+            save(database.toNonCompliance());
+        } else {
+            throw new RuntimeException("not found");
+        }
     }
 
     public List<NonCompliance> listAllByQualityControl(UUID id) {
