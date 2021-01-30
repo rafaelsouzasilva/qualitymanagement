@@ -1,6 +1,8 @@
 package br.com.vehicle.qualitymanagement.view;
 
+import br.com.vehicle.qualitymanagement.service.NonComplianceService;
 import br.com.vehicle.qualitymanagement.service.QualityControlService;
+import br.com.vehicle.qualitymanagement.view.resource.NonComplianceResponse;
 import br.com.vehicle.qualitymanagement.view.resource.QualityControlResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +19,14 @@ import java.util.stream.Collectors;
 public class QualityControlController {
 
     private QualityControlService qualityControlService;
+    private NonComplianceService nonComplianceService;
 
-    public QualityControlController(QualityControlService qualityControlService) {
+    public QualityControlController(
+            QualityControlService qualityControlService,
+            NonComplianceService nonComplianceService
+    ) {
         this.qualityControlService = qualityControlService;
+        this.nonComplianceService = nonComplianceService;
     }
 
     @GetMapping
@@ -29,6 +36,16 @@ public class QualityControlController {
                 .stream()
                 .map(QualityControlResponse::fromDomain)
                 .collect(Collectors.toList())
+        );
+    }
+
+    @GetMapping("{id}/nonCompliance")
+    public ResponseEntity<List<NonComplianceResponse>> listAllNonCompliance(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(
+                nonComplianceService.findAllByQualityControl(id)
+                        .stream()
+                        .map(NonComplianceResponse::fromDomain)
+                        .collect(Collectors.toList())
         );
     }
 

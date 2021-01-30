@@ -4,7 +4,6 @@ import br.com.vehicle.qualitymanagement.infra.adapter.NonComplianceAdapter;
 import br.com.vehicle.qualitymanagement.domain.NonCompliance;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,5 +34,9 @@ public class NonComplianceService {
 
     public void delete(UUID id) {
         nonComplianceAdapter.delete(id);
+    }
+
+    public List<NonCompliance> findAllByQualityControl(UUID id) {
+        return nonComplianceAdapter.listAllByQualityControl(id);
     }
 }

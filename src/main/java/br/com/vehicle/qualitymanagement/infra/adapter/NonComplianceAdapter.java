@@ -45,4 +45,11 @@ public class NonComplianceAdapter {
         Optional<IncidentEntity> entity = incidentRepository.findById(id);
         entity.get().setEnabled(false);
     }
+
+    public List<NonCompliance> listAllByQualityControl(UUID id) {
+        return incidentRepository.findByQualityControlEntityId(id)
+                .stream()
+                .map(IncidentEntity::toNonCompliance)
+                .collect(Collectors.toList());
+    }
 }
